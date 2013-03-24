@@ -65,7 +65,7 @@
                 color: #444;
             }
 
-            body {
+            html, body {
                 overflow: hidden
             }
 
@@ -183,6 +183,12 @@
                     document.getElementsByTagName('instructions')[0].innerHTML = 'Press Ctrl + Shift + I'
                 }
 
+                var displayZoom = false;
+
+                setTimeout(function(){
+                    displayZoom = true;
+                }, 3000);
+
                 var getZoom = function() {
                     return document.width / (document.body.clientWidth + parseInt(getComputedStyle(document.body)['margin-left'], 10) + parseInt(getComputedStyle(document.body)['margin-left'], 10));
                 };
@@ -200,7 +206,7 @@
                         status.innerHTML += ' and ' + (detector.docked ? '<green>Docked</green>' : '<red>Undocked</red>');
                     }
                     clouds.className = detector.open ? 'visible' : '';
-                    if (zoom === 1) {
+                    if (zoom === 1 || !displayZoom) {
                         supplemental.innerHTML = '';
                     } else {
                         supplemental.innerHTML = 'Browser zoom: ' + (zoom + '').substr(0, 5);
