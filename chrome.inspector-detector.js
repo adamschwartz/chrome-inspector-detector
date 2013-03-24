@@ -87,7 +87,7 @@
     window.chrome.inspector._windowHeightOffset = window.chrome.inspector._windowHeightOffset || (window.chrome.inspector.tests.open.profile() ? 200 : window.outerHeight - window.innerHeight);
 
     window.chrome.inspector.detector = function (options) {
-        var state, testName, test, tests;
+        var state, tests;
 
         options = options || window.chrome.inspector.options || {};
 
