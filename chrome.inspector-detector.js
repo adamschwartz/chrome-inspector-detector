@@ -11,11 +11,14 @@
     // http://stackoverflow.com/a/7530254/131898
     window.chrome.inspector._windowHeightOffset = window.chrome.inspector._windowHeightOffset || 100;
 
-    window.chrome.inspector.isOpen = function () {
+    window.chrome.inspector.detector = function () {
         // First try detecting the simple way of comparing
         // the inner and outer window sizes
         if (window.outerHeight > (window.innerHeight + window.chrome.inspector._windowHeightOffset) || window.outerWidth > window.innerWidth) {
-            return true;
+            return {
+                open: true,
+                docked: true
+            };
         }
 
         // If that doesn't work then the inspector is not docked
@@ -32,7 +35,16 @@
             console.clear();
         }
 
-        return console.profiles.length > existingProfiles;
+        if (console.profiles.length > existingProfiles) {
+            return {
+                open: true,
+                docked: true
+            };
+        } else {
+            return {
+                open: false
+            };
+        }
     };
 
 })();
