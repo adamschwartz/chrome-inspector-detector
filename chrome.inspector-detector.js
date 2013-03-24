@@ -24,7 +24,6 @@
                 }
 
                 if (console.profiles.length > existingProfiles) {
-                    console.profiles.pop();
                     return true;
                 }
 
