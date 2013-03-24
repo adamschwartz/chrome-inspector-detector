@@ -11,12 +11,12 @@
     // http://stackoverflow.com/a/7530254/131898
     window.chrome.inspector._windowHeightOffset = window.chrome.inspector._windowHeightOffset || window.outerHeight - window.innerHeight;
 
-    window.chrome.inspector.detector = function (experimental) {
-        // If experimental then first try detecting by comparing
+    window.chrome.inspector.detector = function (detectDocked) {
+        // If detectDocked then first try detecting by comparing
         // the inner and outer window sizes
-        // This was made experimental due to the many issues pointed out here:
+        // detectDocked was made an option due to the many issues pointed out here:
         // https://news.ycombinator.com/item?id=5430882
-        if (experimental) {
+        if (detectDocked) {
             if (window.outerHeight > (window.innerHeight + window.chrome.inspector._windowHeightOffset) || window.outerWidth > window.innerWidth) {
                 return {
                     open: true,
@@ -40,10 +40,16 @@
         }
 
         if (console.profiles.length > existingProfiles) {
-            return {
-                open: true,
-                docked: false
-            };
+            if (detectDocked) {
+                return {
+                    open: true,
+                    docked: false
+                };
+            } else {
+                return {
+                    open: true
+                };
+            }
         } else {
             return {
                 open: false
