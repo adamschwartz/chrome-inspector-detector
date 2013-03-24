@@ -38,7 +38,7 @@
         if (console.profiles.length > existingProfiles) {
             return {
                 open: true,
-                docked: true
+                docked: false
             };
         } else {
             return {
