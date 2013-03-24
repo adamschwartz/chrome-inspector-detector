@@ -37,7 +37,7 @@
         <script>
             (function(){
                 var detect = function() {
-                    var detector = window.chrome.inspector.detector(),
+                    var detector = chrome.inspector.detector(),
                         status = document.getElementsByTagName('status')[0],
                         wait = detector.open && !detector.docked ? 1500 : 100
                     ;
