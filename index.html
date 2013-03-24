@@ -29,13 +29,19 @@
     </head>
     <body>
         <message>
-            <large>Press ⌘ + ⌥ + I</large>
+            <large>&nbsp;</large>
             <br><br>
             Chrome Inspector State: <status></status>
         </message>
         <script src="chrome.inspector-detector.js"></script>
         <script>
             (function(){
+                if (/Mac OS/.test(navigator.appVersion)) {
+                    document.getElementsByTagName('large')[0].innerHTML = 'Press ⌘ + ⌥ + I'
+                } else {
+                    document.getElementsByTagName('large')[0].innerHTML = 'Press Ctrl + Shift + I'
+                }
+
                 var detect = function() {
                     var detector = chrome.inspector.detector(),
                         status = document.getElementsByTagName('status')[0],
