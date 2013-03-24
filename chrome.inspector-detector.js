@@ -9,16 +9,20 @@
     // Account for the height of the omnibar and bookmarks bar
     // Can be overridden by setting window.chrome.inspector._windowHeightOffset yourself
     // http://stackoverflow.com/a/7530254/131898
-    window.chrome.inspector._windowHeightOffset = window.chrome.inspector._windowHeightOffset || 200;
+    window.chrome.inspector._windowHeightOffset = window.chrome.inspector._windowHeightOffset || window.outerHeight - window.innerHeight;
 
-    window.chrome.inspector.detector = function () {
-        // First try detecting the simple way of comparing
+    window.chrome.inspector.detector = function (experimental) {
+        // If experimental then first try detecting by comparing
         // the inner and outer window sizes
-        if (window.outerHeight > (window.innerHeight + window.chrome.inspector._windowHeightOffset) || window.outerWidth > window.innerWidth) {
-            return {
-                open: true,
-                docked: true
-            };
+        // This was made experimental due to the many issues pointed out here:
+        // https://news.ycombinator.com/item?id=5430882
+        if (experimental) {
+            if (window.outerHeight > (window.innerHeight + window.chrome.inspector._windowHeightOffset) || window.outerWidth > window.innerWidth) {
+                return {
+                    open: true,
+                    docked: true
+                };
+            }
         }
 
         // If that doesn't work then the inspector is not docked
