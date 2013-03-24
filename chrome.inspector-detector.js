@@ -33,12 +33,9 @@
 
         docked: {
             height: function(){
-                // First try detecting by comparing the inner and outer window sizes
-                // This is not always accurate due to the many issues posted here:
-                // https://news.ycombinator.com/item?id=5430882
-
                 var zoom = document.width / (document.body.clientWidth + parseInt(getComputedStyle(document.body)['margin-left'], 10) + parseInt(getComputedStyle(document.body)['margin-left'], 10));
 
+                // Try detecting by comparing the inner and outer window sizes
                 if (window.outerHeight > 1 + Math.ceil((zoom * window.innerHeight) + window.chrome.inspector._windowHeightOffset) ||
                     window.outerWidth > 1 + Math.ceil(zoom * window.innerWidth)) {
 
