@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Chrome Inspector Detector</title>
+        <style>
+            message {
+                font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+                position: fixed;
+                color: #444;
+                font-size: 20px;
+                width: 300px;
+                text-align: left;
+                margin-left: -150px;
+                left: 50%;
+                top: 50%;
+                margin-top: -50px;
+            }
+            large {
+                font-size: 150%;
+            }
+            status {
+                color: red;
+            }
+            status[open="true"] {
+                color: green;
+            }
+        </style>
+    </head>
+    <body>
+        <message>
+            <large>Press ⌘ + ⌥ + I</large>
+            <br><br>
+            Chrome Inspector State: <status>Closed</status>
+        </message>
+        <script src="chrome.inspector-detector.js"></script>
+        <script>
+            (function(){
+                var detect = function() {
+                    var open = window.chrome.inspector.isOpen(),
+                        status = document.getElementsByTagName('status')[0],
+                        wait = open ? 1500 : 100
+                    ;
+                    status.setAttribute('open', open);
+                    status.innerHTML = open ? 'Open' : 'Closed';
+                    setTimeout(detect, wait);
+                };
+                detect();
+            })();
+        </script>
+
+        <!-- GitHub -->
+        <a href="https://github.com/adamschwartz/chrome-inspector-detector"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+    </body>
+</html>
