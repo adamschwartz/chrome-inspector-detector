@@ -28,6 +28,13 @@
             supplemental {
                 font-size: 75%;
             }
+            #retweet_button {
+                position: fixed;
+                bottom: 30px;
+                left: 50%;
+                width: 100px;
+                margin-left: -50px;
+            }
         </style>
     </head>
     <body>
@@ -75,6 +82,12 @@
 
         <!-- GitHub -->
         <a href="https://github.com/adamschwartz/chrome-inspector-detector"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+
+        <!-- Share -->
+        <div id="retweet_button">
+            <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://adamschwartz.co/chrome-inspector-detector/" data-text="Chrome Inspector Detector tells you when the Chrome inspector is open. By @adamfschwartz." data-count="horizontal" data-related="hakimel">Tweet</a>
+            <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+        </div>
 
         <!-- Google Analytics -->
         <script type="text/javascript">
