@@ -9,11 +9,6 @@
     var TESTS = {};
     window.chrome.inspector.tests = TESTS;
 
-    // Account for the height of the omnibar and bookmarks bar
-    // Can be overridden by setting window.chrome.inspector._windowHeightOffset yourself
-    // http://stackoverflow.com/a/7530254/131898
-    window.chrome.inspector._windowHeightOffset = window.chrome.inspector._windowHeightOffset || (isOpened() ? 200 : window.outerHeight - window.innerHeight);
-
     TESTS.open = {
         profile: function(){
             // Try running a profile to see if it's open
@@ -54,6 +49,13 @@
             return false;
         }
     };
+
+    // Account for the height of the omnibar and bookmarks bar
+    // Can be overridden by setting window.chrome.inspector._windowHeightOffset yourself
+    // http://stackoverflow.com/a/7530254/131898
+    //
+    // This always uses the profile test right now, but should be configurable in the future.
+    window.chrome.inspector._windowHeightOffset = window.chrome.inspector._windowHeightOffset || (TESTS.open.profile() ? 200 : window.outerHeight - window.innerHeight);
 
     window.chrome.inspector.detector = function (options) {
         var state, testName, test, tests;
