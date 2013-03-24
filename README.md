@@ -10,7 +10,6 @@ Simply call `chrome.inspector.detector()` and you will be returned one of the fo
 
 Please note: 
   - The `docked` response is not accurate if other chrome is visible, including the download bar.
-  - The `opened` response is not accurate if "Preserve log upon navigation" is enabled. 
 
 Credit goes to [this Stackoverflow answer](http://stackoverflow.com/a/15567735/131898) for the profiler technique.
 
