@@ -8,9 +8,6 @@ Simply call `chrome.inspector.detector()` and you will be returned one of the fo
 - When the inspector is opened and in a separate window: `{ opened: true, docked: false }`
 - When the inspector is closed: `{ opened: false, docked: false }`
 
-Please note:
-  - The `docked` response is not accurate if other chrome is visible, including the download bar.
-
 ### Things you could do with this that are not malicious :P
 
 - You're developing a JS game and you want to pause the game whenever you open the console so that it's easier to adjust CSS without it constantly re-rerendering.
