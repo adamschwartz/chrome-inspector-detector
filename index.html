@@ -39,9 +39,9 @@
                 var detect = function() {
                     var detector = chrome.inspector.detector(),
                         status = document.getElementsByTagName('status')[0],
-                        wait = detector.open && !detector.docked ? 1500 : 100
+                        wait = detector.open ? 1500 : 100
                     ;
-                    status.innerHTML = detector.open ? ('<green>Open</green> and ' + (detector.docked ? '<green>Docked</green>' : '<red>Undocked</red>')) : '<red>Closed</red>';
+                    status.innerHTML = detector.open ? '<green>Open</green>' : '<red>Closed</red>';
                     setTimeout(detect, wait);
                 };
                 detect();
