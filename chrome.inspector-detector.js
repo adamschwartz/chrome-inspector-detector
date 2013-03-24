@@ -36,7 +36,11 @@
         // First try detecting by comparing the inner and outer window sizes
         // This is not always accurate due to the many issues posted here:
         // https://news.ycombinator.com/item?id=5430882
-        if (window.outerHeight > (window.innerHeight + window.chrome.inspector._windowHeightOffset) || window.outerWidth > window.innerWidth) {
+
+        var zoom = document.width / (document.body.clientWidth + parseInt(getComputedStyle(document.body)['margin-left'], 10) + parseInt(getComputedStyle(document.body)['margin-left'], 10));
+
+        if (window.outerHeight > zoom * (window.innerHeight + window.chrome.inspector._windowHeightOffset) ||
+            window.outerWidth > zoom * window.innerWidth) {
             return true;
         }
 
@@ -48,7 +52,7 @@
 
         state.open = isOpened();
         state.docked = state.open && isDocked();
-        
+
         return state;
     };
 
