@@ -66,16 +66,21 @@
             }
 
             html, body {
-                overflow: hidden
+                overflow: hidden;
+                height: 100%
+                width: 100%;
             }
 
             clouds {
-                padding: 100px 0;
-                background: #c9dbe9;
+                height: 100%;
+                position: absolute;
+                width: 100%;
+                box-sizing: border-box;
                 background: -webkit-linear-gradient(top, #c9dbe9 0%, #fff 100%);
                 opacity: 0;
                 -webkit-transition: opacity 1s;
-                display: block
+                display: block;
+                overflow: hidden;
             }
 
             clouds.visible {
@@ -87,8 +92,11 @@
                 height: 60px;
                 background: #fff;
                 -webkit-border-radius: 200px;
-                position: relative;
-                display: block
+                position: absolute;
+                display: block;
+                left: 0px;
+                top: 20%;
+                margin-left: 120%;
             }
 
             cloud:before, cloud:after {
@@ -112,46 +120,49 @@
             }
 
             .x1 {
-                -webkit-animation: moveclouds 15s linear infinite;
+                top: 40%;
+                opacity: 0.95;
+                -webkit-animation: moveclouds 30s linear infinite;
             }
 
             .x2 {
                 left: 200px;
+                top: 30%;
                 -webkit-transform: scale(0.6);
                 opacity: 0.6;
-                -webkit-animation: moveclouds 25s linear infinite;
+                -webkit-animation: moveclouds 50s linear infinite;
             }
 
             .x3 {
-                left: -250px;
-                top: -200px;
+                left: 300px;
+                top: 10%;
                 -webkit-transform: scale(0.8);
                 opacity: 0.8;
-                -webkit-animation: moveclouds 20s linear infinite;
+                -webkit-animation: moveclouds 40s linear infinite;
             }
 
             .x4 {
-                left: 470px;
-                top: -250px;
+                left: 600px;
+                top: 24%;
                 -webkit-transform: scale(0.75);
                 opacity: 0.75;
-                -webkit-animation: moveclouds 18s linear infinite;
+                -webkit-animation: moveclouds 36s 18s linear infinite;
             }
 
             .x5 {
-                left: -150px;
-                top: -150px;
-                -webkit-transform: scale(0.8);
+                left: 200px;
+                top: 29%;
+                -webkit-transform: scale(0.4);
                 opacity: 0.8;
-                -webkit-animation: moveclouds 20s linear infinite;
+                -webkit-animation: moveclouds 80s linear infinite;
             }
 
             @-webkit-keyframes moveclouds {
                 0% {
-                    margin-left: 1000px
+                    margin-left: 120%;
                 }
                 100% {
-                    margin-left: -1000px
+                    margin-left: -60%;
                 }
             }
         </style>
@@ -183,12 +194,6 @@
                     document.getElementsByTagName('instructions')[0].innerHTML = 'Press Ctrl + Shift + I'
                 }
 
-                var displayZoom = false;
-
-                setTimeout(function(){
-                    displayZoom = true;
-                }, 3000);
-
                 var getZoom = function() {
                     return document.width / (document.body.clientWidth + parseInt(getComputedStyle(document.body)['margin-left'], 10) + parseInt(getComputedStyle(document.body)['margin-left'], 10));
                 };
@@ -206,7 +211,7 @@
                         status.innerHTML += ' and ' + (detector.docked ? '<green>Docked</green>' : '<red>Undocked</red>');
                     }
                     clouds.className = detector.open ? 'visible' : '';
-                    if (zoom === 1 || !displayZoom) {
+                    if (zoom === 1) {
                         supplemental.innerHTML = '';
                     } else {
                         supplemental.innerHTML = 'Browser zoom: ' + (zoom + '').substr(0, 5);
