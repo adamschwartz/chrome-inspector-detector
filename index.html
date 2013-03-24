@@ -37,12 +37,12 @@
         <script>
             (function(){
                 var detect = function() {
-                    var open = window.chrome.inspector.isOpen(),
+                    var detector = window.chrome.inspector.detector(),
                         status = document.getElementsByTagName('status')[0],
-                        wait = open ? 1500 : 100
+                        wait = detector.open && !detector.docked ? 1500 : 100
                     ;
-                    status.setAttribute('open', open);
-                    status.innerHTML = open ? 'Open' : 'Closed';
+                    status.setAttribute('open', detector.open);
+                    status.innerHTML = detector.open ? 'Open' : 'Closed';
                     setTimeout(detect, wait);
                 };
                 detect();
