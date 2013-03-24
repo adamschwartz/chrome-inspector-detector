@@ -6,6 +6,42 @@
 
     window.chrome.inspector = window.chrome.inspector || {};
 
+    // Console trickery to hide endless probe messages.  Decorate logging and group methods with
+    // code to detect whether we're currently in a group that the inspector detector created.
+    var logMethods = [ 'info', 'warn', 'log', 'debug' , 'error' ];
+    var origGroupEnd = console.groupEnd;
+    var groupActive = false;
+    logMethods.forEach(function(method) {
+        var orig = console[method];
+        console[method] = function() {
+	    if(groupActive) {
+                origGroupEnd.apply(console);
+	        groupActive = false;
+	    }
+	    return orig.apply(console, arguments);
+	};
+    });
+    var origGroupCollapsed = console.groupCollapsed;
+    var groupMethods = ['group', 'groupCollapsed'];
+    groupMethods.forEach(function(method) {
+        var orig = console[method];
+	console[method] = function() {
+	    if(groupActive) {
+	      origGroupEnd.apply(console);
+	      groupActive = false;
+	     }
+	     orig.apply(console);
+	};
+    });
+     console.groupEnd = function() {
+       if(groupActive) {
+           origGroupEnd.apply(console);
+           groupActive = false;
+       }
+       origGroupEnd.apply(console);
+     };
+
+
     window.chrome.inspector.tests = {
 
         open: {
@@ -13,15 +49,12 @@
                 // Try running a profile to see if it's open
                 // http://stackoverflow.com/a/15567735/131898
                 var existingProfiles = console.profiles.length;
+		if (!groupActive) {
+                    groupActive = true;
+		    origGroupCollapsed.apply(console)
+                }
                 console.profile('Inspector detector');
                 console.profileEnd();
-
-                // Note that this has no effect when the inspector
-                // setting "Preserve Log upon navigation" is true
-                // http://web.archiveorange.com/archive/v/fwvdeLnVHqVyTY2UZiaB (Mar 23 2013)
-                if (console.clear) {
-                    console.clear();
-                }
 
                 if (console.profiles.length > existingProfiles) {
                     return true;
