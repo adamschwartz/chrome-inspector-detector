@@ -82,7 +82,7 @@
     // http://stackoverflow.com/a/7530254/131898
     //
     // This always uses the profile test right now, but should be configurable in the future.
-    window.chrome.inspector._windowHeightOffset = window.chrome.inspector._windowHeightOffset || (TESTS.open.profile() ? 200 : window.outerHeight - window.innerHeight);
+    window.chrome.inspector._windowHeightOffset = window.chrome.inspector._windowHeightOffset || (window.chrome.inspector.tests.open.profile() ? 200 : window.outerHeight - window.innerHeight);
 
     window.chrome.inspector.detector = function (options) {
         var state, testName, test, tests;
