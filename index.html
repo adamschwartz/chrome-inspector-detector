@@ -9,21 +9,21 @@
                 position: fixed;
                 color: #444;
                 font-size: 20px;
-                width: 300px;
+                width: 420px;
                 text-align: left;
-                margin-left: -150px;
+                margin-left: -210px;
                 left: 50%;
                 top: 50%;
-                margin-top: -50px;
+                margin-top: -50px
             }
             large {
-                font-size: 150%;
+                font-size: 150%
             }
-            status {
-                color: red;
+            status green {
+                color: green
             }
-            status[open="true"] {
-                color: green;
+            status red {
+                color: red
             }
         </style>
     </head>
@@ -31,7 +31,7 @@
         <message>
             <large>Press ⌘ + ⌥ + I</large>
             <br><br>
-            Chrome Inspector State: <status>Closed</status>
+            Chrome Inspector State: <status></status>
         </message>
         <script src="chrome.inspector-detector.js"></script>
         <script>
@@ -41,8 +41,7 @@
                         status = document.getElementsByTagName('status')[0],
                         wait = detector.open && !detector.docked ? 1500 : 100
                     ;
-                    status.setAttribute('open', detector.open);
-                    status.innerHTML = detector.open ? 'Open' : 'Closed';
+                    status.innerHTML = detector.open ? ('<green>Open</green> and ' + detector.docked ? '<green>Docked</green>' : '<blue>in a Separate Window</blue>') : '<red>Closed</red>';
                     setTimeout(detect, wait);
                 };
                 detect();
