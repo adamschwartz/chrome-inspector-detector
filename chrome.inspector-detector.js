@@ -7,6 +7,7 @@
     window.chrome.inspector = window.chrome.inspector || {};
 
     window.chrome.inspector.tests = {
+
         open: {
             profile: function(){
                 // Try running a profile to see if it's open
@@ -29,6 +30,7 @@
                 return false;
             }
         },
+
         docked: {
             height: function(){
                 // First try detecting by comparing the inner and outer window sizes
@@ -57,8 +59,9 @@
         window.chrome.inspector._windowHeightOffset = (window.chrome.inspector.tests.open.profile() ? 200 : window.outerHeight - window.innerHeight);
 
     var getTests = function (spec){
-        var tests = {};
-        for (var testType in spec){
+        var tests = {}, testType, testName, test;
+
+        for (testType in spec) {
             // The tests can be specified as keys in the `window.chrome.inspector.tests[testType]` object,
             // or as functions.  Specify false (or don't include the key) to not run that
             // class of test.
@@ -70,7 +73,7 @@
             else
                 continue;
 
-            tests[testType] = test; 
+            tests[testType] = test;
         }
 
         return tests;
