@@ -6,7 +6,9 @@
         <style>
             * {
                 font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+                margin: 0
             }
+
             message {
                 position: fixed;
                 color: #444;
@@ -16,20 +18,26 @@
                 margin-left: -210px;
                 left: 50%;
                 top: 50%;
-                margin-top: -50px
+                margin-top: -50px;
+                z-index: 9
             }
+
             instructions {
                 font-size: 150%
             }
+
             status green {
                 color: green
             }
+
             status red {
                 color: red
             }
+
             supplemental {
                 font-size: 75%;
             }
+
             #retweet_button {
                 position: fixed;
                 bottom: 30px;
@@ -37,6 +45,7 @@
                 width: 100px;
                 margin-left: -100px;
             }
+
             credits {
                 position: fixed;
                 bottom: 35px;
@@ -45,13 +54,105 @@
                 font-size: 13px;
                 color: #aaa;
             }
+
             credits a, credits a:link, credits a:visited {
                 color: #aaa;
                 text-decoration: none;
             }
+
             credits a:hover {
                 text-decoration: underline;
                 color: #444;
+            }
+
+            body {
+                overflow: hidden
+            }
+
+            clouds {
+                padding: 100px 0;
+                background: #c9dbe9;
+                background: -webkit-linear-gradient(top, #c9dbe9 0%, #fff 100%);
+                opacity: 0;
+                -webkit-transition: opacity 1s;
+                display: block
+            }
+
+            clouds.visible {
+                opacity: 1;
+            }
+
+            cloud {
+                width: 200px;
+                height: 60px;
+                background: #fff;
+                -webkit-border-radius: 200px;
+                position: relative;
+                display: block
+            }
+
+            cloud:before, cloud:after {
+                content: '';
+                position: absolute;
+                background: #fff;
+                width: 100px;
+                height: 80px;
+                top: -15px;
+                left: 10px;
+                -webkit-border-radius: 100px;
+                -webkit-transform: rotate(30deg)
+            }
+
+            cloud:after {
+                width: 120px;
+                height: 120px;
+                top: -55px;
+                left: auto;
+                right: 15px
+            }
+
+            .x1 {
+                -webkit-animation: moveclouds 15s linear infinite;
+            }
+
+            .x2 {
+                left: 200px;
+                -webkit-transform: scale(0.6);
+                opacity: 0.6;
+                -webkit-animation: moveclouds 25s linear infinite;
+            }
+
+            .x3 {
+                left: -250px;
+                top: -200px;
+                -webkit-transform: scale(0.8);
+                opacity: 0.8;
+                -webkit-animation: moveclouds 20s linear infinite;
+            }
+
+            .x4 {
+                left: 470px;
+                top: -250px;
+                -webkit-transform: scale(0.75);
+                opacity: 0.75;
+                -webkit-animation: moveclouds 18s linear infinite;
+            }
+
+            .x5 {
+                left: -150px;
+                top: -150px;
+                -webkit-transform: scale(0.8);
+                opacity: 0.8;
+                -webkit-animation: moveclouds 20s linear infinite;
+            }
+
+            @-webkit-keyframes moveclouds {
+                0% {
+                    margin-left: 1000px
+                }
+                100% {
+                    margin-left: -1000px
+                }
             }
         </style>
     </head>
@@ -63,6 +164,16 @@
             <br><br>
             <supplemental></supplemental>
         </message>
+
+        <!-- Thanks http://thecodeplayer.com/walkthrough/pure-css3-animated-clouds-background -->
+        <clouds>
+            <cloud class="x1"></cloud>
+            <cloud class="x2"></cloud>
+            <cloud class="x3"></cloud>
+            <cloud class="x4"></cloud>
+            <cloud class="x5"></cloud>
+        </clouds>
+
         <script src="chrome.inspector-detector.js"></script>
         <script>
             (function(){
@@ -79,6 +190,7 @@
                 var detect = function() {
                     var zoom = getZoom(),
                         detector = chrome.inspector.detector(),
+                        clouds = document.getElementsByTagName('clouds')[0],
                         status = document.getElementsByTagName('status')[0],
                         supplemental = document.getElementsByTagName('supplemental')[0],
                         wait = detector.open ? 1500 : 100
@@ -87,6 +199,7 @@
                     if (detector.open) {
                         status.innerHTML += ' and ' + (detector.docked ? '<green>Docked</green>' : '<red>Undocked</red>');
                     }
+                    clouds.className = detector.open ? 'visible' : '';
                     if (zoom === 1) {
                         supplemental.innerHTML = '';
                     } else {
