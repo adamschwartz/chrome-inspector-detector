@@ -11,19 +11,7 @@
     // http://stackoverflow.com/a/7530254/131898
     window.chrome.inspector._windowHeightOffset = window.chrome.inspector._windowHeightOffset || window.outerHeight - window.innerHeight;
 
-    window.chrome.inspector.detector = function () {
-        state = {
-            open: false,
-            docked: false
-        };
-
-        // First try detecting by comparing the inner and outer window sizes
-        // This is not always accurate due to the many issues posted here:
-        // https://news.ycombinator.com/item?id=5430882
-        if (window.outerHeight > (window.innerHeight + window.chrome.inspector._windowHeightOffset) || window.outerWidth > window.innerWidth) {
-            state.docked = true;
-        }
-
+    var isOpened = function(){
         // Try running a profile to see if it's open
         // http://stackoverflow.com/a/15567735/131898
         var existingProfiles = console.profiles.length;
@@ -38,9 +26,29 @@
         }
 
         if (console.profiles.length > existingProfiles) {
-            state.open = true;
+            return true;
         }
 
+        return false;
+    };
+
+    var isDocked = function(){
+        // First try detecting by comparing the inner and outer window sizes
+        // This is not always accurate due to the many issues posted here:
+        // https://news.ycombinator.com/item?id=5430882
+        if (window.outerHeight > (window.innerHeight + window.chrome.inspector._windowHeightOffset) || window.outerWidth > window.innerWidth) {
+            return true;
+        }
+
+        return false;
+    };
+
+    window.chrome.inspector.detector = function () {
+        var state = {};
+
+        state.open = isOpened();
+        state.docked = state.open && isDocked();
+        
         return state;
     };
 
