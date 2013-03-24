@@ -14,7 +14,7 @@
     var TESTS = {};
     window.chrome.inspector.tests = TESTS;
 
-    TESTS.opened = {
+    TESTS.open = {
         profile: function(){
             // Try running a profile to see if it's open
             // http://stackoverflow.com/a/15567735/131898
@@ -34,9 +34,6 @@
             }
 
             return false;
-        },
-        commandLineAPI: function(){
-            return !!console._commandLineAPI;
         }
     };
 
@@ -61,7 +58,7 @@
         // `options.tests` should be an object mapping a state to be looked for to
         // a specific test to execute to test for it.
         options.tests = options.tests || {
-            opened: 'commandLineAPI',
+            open: 'profile',
             docked: 'height'
         };
 
@@ -74,7 +71,7 @@
             testName = options.tests[testType];
             if (typeof testName == 'string')
                 test = TESTS[testType][testName];
-            else if (typeof testName == 'function');
+            else if (typeof testName == 'function')
                 test = testName;
             else
                 continue;
