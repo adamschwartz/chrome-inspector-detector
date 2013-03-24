@@ -80,7 +80,7 @@
     };
 
     window.chrome.inspector.detector = function (options) {
-        var state, testName, test, tests;
+        var state, tests;
 
         options = options || window.chrome.inspector.options || {};
 
