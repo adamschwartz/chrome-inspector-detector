@@ -13,7 +13,7 @@
                 // Try running a profile to see if it's open
                 // http://stackoverflow.com/a/15567735/131898
                 var existingProfiles = console.profiles.length;
-                console.profile();
+                console.profile('Inspector detector');
                 console.profileEnd();
 
                 // Note that this has no effect when the inspector
