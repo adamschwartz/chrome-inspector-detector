@@ -1,7 +1,7 @@
 (function(){
 
     if (!window.chrome || !window.console) {
-        return alert('Chrome Inspector Helpers only supported in Google Chrome.');
+        return ((window.console && console.log) || alert)('Chrome Inspector Helpers only supported in Google Chrome.');
     }
 
     window.chrome.inspector = window.chrome.inspector || {};
@@ -11,22 +11,20 @@
     // http://stackoverflow.com/a/7530254/131898
     window.chrome.inspector._windowHeightOffset = window.chrome.inspector._windowHeightOffset || window.outerHeight - window.innerHeight;
 
-    window.chrome.inspector.detector = function (detectDocked) {
-        // If detectDocked then first try detecting by comparing
-        // the inner and outer window sizes
-        // detectDocked was made an option due to the many issues pointed out here:
+    window.chrome.inspector.detector = function () {
+        state = {
+            open: false,
+            docked: false
+        };
+
+        // First try detecting by comparing the inner and outer window sizes
+        // This is not always accurate due to the many issues posted here:
         // https://news.ycombinator.com/item?id=5430882
-        if (detectDocked) {
-            if (window.outerHeight > (window.innerHeight + window.chrome.inspector._windowHeightOffset) || window.outerWidth > window.innerWidth) {
-                return {
-                    open: true,
-                    docked: true
-                };
-            }
+        if (window.outerHeight > (window.innerHeight + window.chrome.inspector._windowHeightOffset) || window.outerWidth > window.innerWidth) {
+            state.docked = true;
         }
 
-        // If that doesn't work then the inspector is not docked
-        // so instead try running a profile to see if it's open
+        // Try running a profile to see if it's open
         // http://stackoverflow.com/a/15567735/131898
         var existingProfiles = console.profiles.length;
         console.profile();
@@ -40,21 +38,10 @@
         }
 
         if (console.profiles.length > existingProfiles) {
-            if (detectDocked) {
-                return {
-                    open: true,
-                    docked: false
-                };
-            } else {
-                return {
-                    open: true
-                };
-            }
-        } else {
-            return {
-                open: false
-            };
+            state.open = true;
         }
+
+        return state;
     };
 
 })();
