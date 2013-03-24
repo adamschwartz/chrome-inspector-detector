@@ -4,8 +4,10 @@
         <meta charset="utf-8">
         <title>Chrome Inspector Detector</title>
         <style>
-            message {
+            * {
                 font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            }
+            message {
                 position: fixed;
                 color: #444;
                 font-size: 20px;
@@ -33,7 +35,23 @@
                 bottom: 30px;
                 left: 50%;
                 width: 100px;
-                margin-left: -50px;
+                margin-left: -100px;
+            }
+            credits {
+                position: fixed;
+                bottom: 35px;
+                left: 50%;
+                width: 130px;
+                font-size: 13px;
+                color: #aaa;
+            }
+            credits a, credits a:link, credits a:visited {
+                color: #aaa;
+                text-decoration: none;
+            }
+            credits a:hover {
+                text-decoration: underline;
+                color: #444;
             }
         </style>
     </head>
@@ -85,9 +103,13 @@
 
         <!-- Share -->
         <div id="retweet_button">
-            <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://adamschwartz.co/chrome-inspector-detector/" data-text="Chrome Inspector Detector tells you when the Chrome inspector is open. By @adamfschwartz." data-count="horizontal" data-related="hakimel">Tweet</a>
+            <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://adamschwartz.co/chrome-inspector-detector/" data-text="Chrome Inspector Detector tells you when the Chrome inspector is open. By @adamfschwartz." data-count="horizontal" data-related="adamfschwartz">Tweet</a>
             <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
         </div>
+
+        <credits>
+            By <a href="http://adamschwartz.co">Adam Schwartz</a>
+        </credits>
 
         <!-- Google Analytics -->
         <script type="text/javascript">
