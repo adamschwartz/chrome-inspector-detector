@@ -39,8 +39,8 @@
 
         var zoom = document.width / (document.body.clientWidth + parseInt(getComputedStyle(document.body)['margin-left'], 10) + parseInt(getComputedStyle(document.body)['margin-left'], 10));
 
-        if (window.outerHeight > zoom * (window.innerHeight + window.chrome.inspector._windowHeightOffset) ||
-            window.outerWidth > zoom * window.innerWidth) {
+        if (window.outerHeight > 2 + Math.ceil((zoom * window.innerHeight) + window.chrome.inspector._windowHeightOffset) ||
+            window.outerWidth > 2 + Math.ceil(zoom * window.innerWidth)) {
             return true;
         }
 
