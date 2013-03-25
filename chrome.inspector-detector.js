@@ -101,7 +101,7 @@
     //
     // On change, call options.callback with arguments (new state, previous state)
     window.chrome.inspector.detector.watch = function (options) {
-        var interval, check, prevState, isEqual;
+        var interval, check, intervalId, handle, prevState, isEqual;
 
         interval = options.interval || 250;
 
@@ -109,6 +109,14 @@
             console.log("Chrome inspector detector watch call without a callback specified");
             return;
         }
+
+        // An object to pass into the callback as it's context, and to return from this
+        // function so the monitoring can be stopped.
+        handle = {
+            stop: function(){
+                clearInterval(intervalId);
+            }
+        };
 
         isEqual = function(stateA, stateB){
             for (var testA in stateA){
@@ -131,13 +139,14 @@
             newState = window.chrome.inspector.detector(options);
         
             if (prevState && !isEqual(prevState, newState)){
-                options.callback(newState, prevState);
+                options.callback.call(handle, newState, prevState);
             }
             
             prevState = newState;
         };
 
-        return setInterval(check, interval);
+        intervalId = setInterval(check, interval);
+        return handle;
     };
 
 })();
