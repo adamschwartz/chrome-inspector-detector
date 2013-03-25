@@ -8,6 +8,10 @@ Simply call `chrome.inspector.detector()` and you will be returned one of the fo
 - When the inspector is opened and in a separate window: `{ opened: true, docked: false }`
 - When the inspector is closed: `{ opened: false, docked: false }`
 
+Note:
+
+- In order for docking detection to work, you must have `html, body { height: 100%; width: 100% }` in your CSS (or something similar) such that when the Inspector is closed `document.height === document.body.clientHeight` is `true`.
+
 ### Things you could do with this that are not malicious :P
 
 - You're developing a JS game and you want to pause the game whenever you open the console so that it's easier to adjust CSS without it constantly re-rerendering.
