@@ -137,7 +137,7 @@
             prevState = newState;
         };
 
-        setInterval(check, interval);
+        return setInterval(check, interval);
     };
 
 })();
