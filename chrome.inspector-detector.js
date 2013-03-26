@@ -6,8 +6,18 @@
 
     window.chrome.inspector = window.chrome.inspector || {};
 
-    // Console trickery to hide endless probe messages.  Decorate logging and group methods with
-    // code to detect whether we're currently in a group that the inspector detector created.
+    // As a side effect when running console.profile() to check if the
+    // inspector is open, WebKit prints a message to the console log.  This
+    // clutters the log, but a workaround is to open a collapsed group (see
+    // https://developer.mozilla.org/en-US/docs/DOM/console#Using_groups_in_the_console
+    // ) that the messages are collected into.
+    //
+    // However, with this approach, we still would like console messages from
+    // external code to appear.  The trick we use below is to keep track of
+    // whether there is a collapsed group currently open, and decorate the
+    // builtin console loging methods (log, info, warn, etc) as well as group,
+    // groupCollapsed and groupEnd to close the group if this is the case.
+
     var logMethods = [ 'info', 'warn', 'log', 'debug' , 'error' ];
     var origGroupEnd = console.groupEnd;
     var groupActive = false;
@@ -30,7 +40,7 @@
                 origGroupEnd.apply(console);
                 groupActive = false;
             }
-        orig.apply(console);
+            orig.apply(console);
         };
     });
     console.groupEnd = function() {
