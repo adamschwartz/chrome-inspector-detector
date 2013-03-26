@@ -91,8 +91,8 @@
         tests = getTests(options.tests);
 
         state = {};
-        state.open = tests.open && tests.open();
-        state.docked = state.open && tests.docked && tests.docked();
+        state.open = !!(tests.open && tests.open());
+        state.docked = !!(state.open && tests.docked && tests.docked());
 
         return state;
     };
