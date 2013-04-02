@@ -198,27 +198,30 @@
                     return document.width / (document.body.clientWidth + parseInt(getComputedStyle(document.body)['margin-left'], 10) + parseInt(getComputedStyle(document.body)['margin-left'], 10));
                 };
 
-                var detect = function() {
-                    var zoom = getZoom(),
-                        detector = chrome.inspector.detector(),
-                        clouds = document.getElementsByTagName('clouds')[0],
-                        status = document.getElementsByTagName('status')[0],
-                        supplemental = document.getElementsByTagName('supplemental')[0],
-                        wait = detector.open ? 1500 : 100
-                    ;
+                var clouds = document.getElementsByTagName('clouds')[0],
+                    status = document.getElementsByTagName('status')[0],
+                    supplemental = document.getElementsByTagName('supplemental')[0]
+                ;
+
+                chrome.inspector.detector.watch(function(detector){
                     status.innerHTML = detector.open ? '<green>Open</green>' : '<red>Closed</red>';
+
                     if (detector.open) {
                         status.innerHTML += ' and ' + (detector.docked ? '<green>Docked</green>' : '<red>Undocked</red>');
                     }
+
                     clouds.className = detector.open ? 'visible' : '';
+                });
+
+                setInterval(function(){
+                    var zoom = getZoom();
+
                     if (zoom === 1) {
                         supplemental.innerHTML = '';
                     } else {
                         supplemental.innerHTML = 'Browser zoom: ' + (zoom + '').substr(0, 5);
                     }
-                    setTimeout(detect, wait);
-                };
-                detect();
+                }, 100);
             })();
         </script>
 
