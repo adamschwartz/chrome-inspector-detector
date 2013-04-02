@@ -21,6 +21,7 @@
     var logMethods = [ 'info', 'warn', 'log', 'debug' , 'error' ];
     var origGroupEnd = console.groupEnd;
     var groupActive = false;
+
     logMethods.forEach(function(method) {
         var orig = console[method];
         console[method] = function() {
@@ -31,8 +32,10 @@
             return orig.apply(console, arguments);
         };
     });
+
     var origGroupCollapsed = console.groupCollapsed;
     var groupMethods = ['group', 'groupCollapsed'];
+
     groupMethods.forEach(function(method) {
         var orig = console[method];
         console[method] = function() {
@@ -43,6 +46,7 @@
             orig.apply(console);
         };
     });
+
     console.groupEnd = function() {
        if(groupActive) {
            origGroupEnd.apply(console);
@@ -58,11 +62,13 @@
                 // Try running a profile to see if it's open
                 // http://stackoverflow.com/a/15567735/131898
                 var existingProfiles = console.profiles.length;
+
                 if (!groupActive) {
                     groupActive = true;
-                    origGroupCollapsed.apply(console)
+                    origGroupCollapsed.apply(console);
                 }
-                console.profile('Inspector detector');
+
+                console.profile('Inspector Detector');
                 console.profileEnd();
 
                 if (console.profiles.length > existingProfiles) {
