@@ -145,4 +145,69 @@
         return state;
     };
 
+    // Watch for changes in the open/docked state.
+    //
+    // On change, call options.callback with arguments (new state, previous state)
+    window.chrome.inspector.detector.watch = function (options) {
+        var interval, check, intervalId, chain, prevState, isEqual;
+
+        interval = options.interval || 100;
+
+        if (!options) {
+            console.log('Chrome Inspector Detector watch call requires a callback.');
+            return;
+        }
+
+        if (typeof options === 'function') {
+            options = {
+                callback: options
+            };
+        }
+
+        // An object to pass into the callback as it's context, and to return from this
+        // function so the monitoring can be stopped.
+        chain = {
+            stop: function() {
+                clearInterval(intervalId);
+            }
+        };
+
+        isEqual = function(stateA, stateB) {
+            if ((typeof stateA != 'object' || typeof stateB != 'object') && stateA != stateB) {
+                return false;
+            }
+
+            for (var testA in stateA) {
+                if (!stateA.hasOwnProperty(testA)) continue;
+
+                for (var testB in stateB) {
+                    if (!stateB.hasOwnProperty(testB)) continue;
+
+                    if (stateA[testA] !== stateB[testB])
+                        return false;
+                }
+            }
+
+            return true;
+        };
+
+        check = function(){
+            var newState;
+
+            newState = window.chrome.inspector.detector(options);
+
+            if (!isEqual(prevState, newState)) {
+                options.callback.call(chain, newState, prevState);
+            }
+
+            prevState = newState;
+        };
+
+        check();
+
+        intervalId = setInterval(check, interval);
+
+        return chain;
+    };
+
 })();
