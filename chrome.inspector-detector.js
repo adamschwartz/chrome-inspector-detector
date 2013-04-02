@@ -18,7 +18,7 @@
     // builtin console loging methods (log, info, warn, etc) as well as group,
     // groupCollapsed and groupEnd to close the group if this is the case.
 
-    var logMethods = [ 'info', 'warn', 'log', 'debug' , 'error' ];
+    var logMethods = ['info', 'warn', 'log', 'debug' , 'error'];
     var origGroupEnd = console.groupEnd;
     var groupActive = false;
 
