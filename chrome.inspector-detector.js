@@ -81,7 +81,7 @@
     //
     // This always uses the profile test right now, but should be configurable in the future.
     if (window.chrome.inspector._windowHeightOffset === undefined)
-        window.chrome.inspector._windowHeightOffset = (window.chrome.inspector.tests.open.profile() ? 200 : window.outerHeight - window.innerHeight);
+        window.chrome.inspector._windowHeightOffset = (isOpen() ? 200 : window.outerHeight - window.innerHeight);
 
     var isDocked = function() {
         var zoom = document.width / (document.body.clientWidth + parseInt(getComputedStyle(document.body)['margin-left'], 10) + parseInt(getComputedStyle(document.body)['margin-left'], 10));
