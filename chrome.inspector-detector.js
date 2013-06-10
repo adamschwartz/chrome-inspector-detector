@@ -18,9 +18,14 @@
     // builtin console loging methods (log, info, warn, etc) as well as group,
     // groupCollapsed and groupEnd to close the group if this is the case.
 
-    var logMethods = ['info', 'warn', 'log', 'debug' , 'error'];
-    var origGroupEnd = console.groupEnd;
-    var groupActive = false;
+    var logMethods, origGroupEnd, groupActive,
+        origGroupCollapsed, groupMethods,
+        isOpen, isDocked
+    ;
+
+    logMethods = ['info', 'warn', 'log', 'debug' , 'error'];
+    origGroupEnd = console.groupEnd;
+    groupActive = false;
 
     logMethods.forEach(function(method) {
         var orig = console[method];
@@ -33,8 +38,8 @@
         };
     });
 
-    var origGroupCollapsed = console.groupCollapsed;
-    var groupMethods = ['group', 'groupCollapsed'];
+    origGroupCollapsed = console.groupCollapsed;
+    groupMethods = ['group', 'groupCollapsed'];
 
     groupMethods.forEach(function(method) {
         var orig = console[method];
@@ -55,7 +60,7 @@
        origGroupEnd.apply(console);
     };
 
-    var isOpen = function() {
+    isOpen = function() {
         // Try running a profile to see if it's open
         // http://stackoverflow.com/a/15567735/131898
         var existingProfiles = console.profiles.length;
@@ -83,7 +88,7 @@
     if (window.chrome.inspector._windowHeightOffset === undefined)
         window.chrome.inspector._windowHeightOffset = (isOpen() ? 200 : window.outerHeight - window.innerHeight);
 
-    var isDocked = function() {
+    isDocked = function() {
         var zoom = document.width / (document.body.clientWidth + parseInt(getComputedStyle(document.body)['margin-left'], 10) + parseInt(getComputedStyle(document.body)['margin-left'], 10));
 
         // Try detecting by comparing the inner and outer window sizes
@@ -134,14 +139,16 @@
         };
 
         isEqual = function(stateA, stateB) {
+            var testA, testB;
+
             if ((typeof stateA != 'object' || typeof stateB != 'object') && stateA != stateB) {
                 return false;
             }
 
-            for (var testA in stateA) {
+            for (testA in stateA) {
                 if (!stateA.hasOwnProperty(testA)) continue;
 
-                for (var testB in stateB) {
+                for (testB in stateB) {
                     if (!stateB.hasOwnProperty(testB)) continue;
 
                     if (stateA[testA] !== stateB[testB])
