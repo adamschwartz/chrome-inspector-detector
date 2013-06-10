@@ -74,7 +74,7 @@
 
         return false;
     };
-    
+
     // Account for the height of the omnibar and bookmarks bar
     // Can be overridden by setting window.chrome.inspector._windowHeightOffset yourself
     // http://stackoverflow.com/a/7530254/131898
@@ -100,7 +100,7 @@
         var state;
 
         state = {};
-        state.open = isOpen() 
+        state.open = isOpen();
         state.docked = state.open && isDocked();
 
         return state;
