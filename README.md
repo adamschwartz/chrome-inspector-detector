@@ -1,5 +1,9 @@
 ## Chrome Inspector Detector
 
+![Deprecation warning](https://f.cloud.github.com/assets/154613/830510/69696890-f159-11e2-85f4-b35698ca6a00.png)
+
+________
+
 ### [Demo](http://adamschwartz.co/chrome-inspector-detector)
 
 A simple utility for detecting whether or not the Chrome Inspector is open or docked.
