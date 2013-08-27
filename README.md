@@ -1,6 +1,6 @@
 #### Deprecation warning:
 
-> As of July 16, 2013, this library no longer works in the latest Google Chrome Canary builds due to a [change to `chrome.profiles`](https://codereview.chromium.org/15816002). Once the change makes it to Stable, this library will be deprecated. If you want to be mad, don't be mad at [paulirish](http://github.com/paulirish). He [gave us a chance to prove our case](https://github.com/adamschwartz/chrome-inspector-detector/issues/11), but we didn't make it strong enough. __But there is hope!__ If we band together, we will get this functionality back through a [Chrome Extension](https://github.com/adamschwartz/chrome-inspector-detector/issues/8). Progress [has already been made](https://groups.google.com/a/chromium.org/d/msg/chromium-extensions/4Ge-51oHiZI/Awzhrzdf2R8J). – Adam
+> As of August 20, 2013, this library no longer works in the latest stable build Google Chrome, due to a [change to `chrome.profiles`](https://codereview.chromium.org/15816002). So it is now deprecated. We may try bring this library back as a [Chrome Extension](https://github.com/adamschwartz/chrome-inspector-detector/issues/8). Progress [has already been made](https://groups.google.com/a/chromium.org/d/msg/chromium-extensions/4Ge-51oHiZI/Awzhrzdf2R8J). – Adam
 
 ## Chrome Inspector Detector
 
