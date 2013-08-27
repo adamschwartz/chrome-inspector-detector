@@ -1,4 +1,4 @@
-#### Deprecation warning:
+#### Deprecation
 
 > As of August 20, 2013, this library no longer works in the latest stable build Google Chrome, due to a [change to `chrome.profiles`](https://codereview.chromium.org/15816002). So it is now deprecated. We may try bring this library back as a [Chrome Extension](https://github.com/adamschwartz/chrome-inspector-detector/issues/8). Progress [has already been made](https://groups.google.com/a/chromium.org/d/msg/chromium-extensions/4Ge-51oHiZI/Awzhrzdf2R8J). – Adam
 
